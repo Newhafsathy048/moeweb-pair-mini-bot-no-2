@@ -48,6 +48,8 @@ const whatsappLinkBtn = document.getElementById('whatsappLinkBtn');
 const emailLinkBtn = document.getElementById('emailLinkBtn');
 const emailLinkText = document.getElementById('emailLinkText');
 const footerText = document.getElementById('footerText');
+const restartBtn = document.getElementById('restartBtn');
+const restartBtnText = document.getElementById('restartBtnText');
 
 const STATUS_COPY = {
   unpaired: { text: 'READY TO PAIR // NODE ONLINE', cls: '' },
@@ -106,6 +108,38 @@ resetLink.addEventListener('click', () => {
   myNumber = '';
   phoneInput.value = '';
   pollStatus();
+});
+
+restartBtn.addEventListener('click', async () => {
+  if (!myNumber) return;
+  
+  restartBtn.disabled = true;
+  restartBtnText.textContent = 'RESTARTING...';
+  
+  try {
+    const res = await fetch('/api/restart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ number: myNumber })
+    });
+    const data = await res.json();
+    
+    if (!res.ok || !data.ok) {
+      throw new Error(data.error || 'Restart failed.');
+    }
+    
+    restartBtnText.textContent = 'RESTARTED!';
+    setTimeout(() => {
+      restartBtnText.textContent = 'RESTART BOT SESSION';
+      restartBtn.disabled = false;
+    }, 3000);
+    
+    pollStatus();
+  } catch (err) {
+    alert('Error: ' + err.message);
+    restartBtnText.textContent = 'RESTART BOT SESSION';
+    restartBtn.disabled = false;
+  }
 });
 
 // ---------- pairing form ----------

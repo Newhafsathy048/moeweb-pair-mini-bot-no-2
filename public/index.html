@@ -139,7 +139,13 @@
 
     <div class="paired-notice" id="pairedNotice" hidden>
       <strong>✅ Linked.</strong> This number is connected and running its own copy of the bot.
-      <button type="button" class="reset-link" id="resetLink">Pair a different number</button>
+      <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+        <button type="button" class="restart-btn" id="restartBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          <span id="restartBtnText">RESTART BOT SESSION</span>
+        </button>
+        <button type="button" class="reset-link" id="resetLink" style="background:none; border:none; color:var(--text-dim); font-size:0.75rem; cursor:pointer; text-decoration:underline;">Pair a different number</button>
+      </div>
     </div>
   </section>
 
